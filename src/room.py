@@ -1,30 +1,56 @@
+from item
+
 class Room:
-    def __init__(self, name, description):
+    def __init__(self, name, description, items=None):
         self.name = name
         self.description = description
+        self.items = items
+
+    def get_name(self):
+        return self.name
+    
+    def get_description(self):
+        return self.description
+
+    def get_items(self):
+        return self.items
 
     def __str__(self):
         return f" {{ name: {self.name}, description: {self.description} }}"
 
 
+
+
 # declare all the rooms
 rooms = {
-    "outside": Room("Outside Cave Entrance", "North of you, the cave mount beckons..."),
+    "outside": Room("Outside Cave Entrance", "North of you, the cave mount beckons...", [
+                         Item("Rock", "A large stone made from basalt."),
+                         Item("Paper", "A sheet of paper made of papyrus."),
+                         Item("Scissors", "A marvelous new piece of technology.")]),
     "foyer": Room(
         "Foyer",
         """Dim light filters in from the south. Dusty
-passages run north and east...""",
+passages run north and east...""",Item("Gold", "Some money for your pocket"),
+        Item("Helmet", "Something to protect your head from further damage."),
+        Item("Shield", "Something to protect your body.")]
     ),
     "overlook": Room(
         "Grand Overlook",
         """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm...""",
+the distance, but there is no way across the chasm...""",[
+        Item("Skull", "Some deaf guy's skull."),
+        Item("Hide", "Hide from a Cow."),
+        Item("Bow", "A violin bow. Probably not what you were thinking")]
     ),
     "narrow": Room(
         "Narrow Passage",
         """The narrow passage bends here from west
-to north. The smell of gold permeates the air...""",
+to north. The smell of gold permeates the air...""",[
+                       Item("Sword", "A large iron sword."),
+                       Item(
+                           "Arrow", "This one looks as if it had been logged in the knee of an adventurer..."),
+                       Item("Leather Pants", "Chapped, assless, leather pants.")]
     ),
     "treasure": Room(
         "Treasure Chamber",
