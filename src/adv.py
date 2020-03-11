@@ -46,7 +46,7 @@ dead_end = False
 
 while not cmd == "Quit":
     # clears terminal
-    os.system("clear")  # mac os
+    os.system("clear")  # requires detection for os, "clear" works only for mac
 
     if dead_end is True:
         print(Fore.RED + "You've hit a dead end.\n")
