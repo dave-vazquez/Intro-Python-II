@@ -18,16 +18,16 @@ main_menu = [
     }
 ]
 
-cardinal_directions = [
+direction_menu = [
     {
         "type": "list",
         "name": "direction",
-        "message": "What action would you like to take?",
-        "choices": ["Move", "Take Item", "Quit"],
+        "message": "Which direction?",
+        "choices": ["North", "South", "East", "West", "Back to Menu"],
     },
 ]
 
-items = [{"type": "checkbox", "name": "items", "message": "Select an item"}]
+item_menu = [{"type": "checkbox", "name": "items", "message": "Select an item"}]
 
 # TODO: consider textwrap module
 def print_current_room(current_room):
@@ -70,7 +70,7 @@ while not cmd == "Quit":
     cmd = prompt(main_menu)["menu"]
     if cmd == "Move":
         # prompts user to enter a cardinal direction
-        direction = prompt(cardinal_directions)["direction"]
+        direction = prompt(direction_menu)["direction"]
         try:
             if direction == "North":
                 player.move(direction)
@@ -83,9 +83,9 @@ while not cmd == "Quit":
         except AttributeError:
             dead_end = True
     elif cmd == "Take Item":
-        items[0]["choices"] = [{"name": item.get_name()} for item in room_items]
+        item_menu[0]["choices"] = [{"name": item.get_name()} for item in room_items]
 
-        prompt(items)["items"]
+        prompt(item_menu)["items"]
         pass
 
 
