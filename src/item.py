@@ -10,4 +10,4 @@ class Item:
         return self.description
 
     def __str__(self):
-        return f" {{ name: {self.name}, description: {self.description} }}"
+        return f"{self.name}: {self.description}"
