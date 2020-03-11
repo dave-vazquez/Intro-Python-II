@@ -57,7 +57,6 @@ while not cmd == "Quit":
     current_room = player.get_current_room()
     room_items = current_room.get_items()
 
-    print(f"room_items: {[item.get_name() for item in room_items]}")
     # displays current room & description
     print_current_room(current_room)
     # displays items in room
