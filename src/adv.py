@@ -6,13 +6,6 @@ import copy
 import sys
 import os
 
-# function to clear terminal after each input command
-def clear():
-    return os.system("clear")
-
-
-clear()
-
 """
     Main
 
@@ -30,6 +23,15 @@ clear()
     If the user enters "q", quit the game.
 """
 
+
+def print_current_room(player):
+    print(
+        Fore.CYAN
+        + f"Current Room: {player.current_room.name} \
+        \n\n{player.current_room.description}\n"
+    )
+
+
 cardinal_directions = [
     {
         "type": "list",
@@ -39,32 +41,35 @@ cardinal_directions = [
     }
 ]
 
-
 cmd = ""
+dead_end = False
+
 while not cmd == "Quit":
-    print(
-        Fore.CYAN
-        + f"Current Room: {player.current_room.name} \
-        \n{player.current_room.description}"
-    )
+    # clears terminal
+    os.system("clear")  # mac os
 
+    if dead_end is True:
+        print(Fore.RED + "You've hit a dead end.\n")
+        dead_end = False
+
+    # displays current room & description
+    print_current_room(player)
+
+    # prompts user to enter a cardinal direction
     cmd = prompt(cardinal_directions)["menu"]
+    try:
+        if cmd == "North":
+            player.move(cmd)
+        elif cmd == "South":
+            player.move(cmd)
+        elif cmd == "East":
+            player.move(cmd)
+        elif cmd == "West":
+            player.move(cmd)
+    except AttributeError:
+        dead_end = True
 
-    if cmd == "North":
-        clear()
-        print("Moves North")
-    elif cmd == "South":
-        clear()
-        print("Moves South")
-    elif cmd == "East":
-        clear()
-        print("Moves East")
-    elif cmd == "West":
-        clear()
-        print("Moves West")
-    else:
-        clear()
-        print("Invalid command. Try again.")
+
 clear()
 print("Your journey has ended. For now...")
 
