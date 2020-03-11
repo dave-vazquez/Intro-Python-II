@@ -32,6 +32,10 @@ def print_current_room(player):
     )
 
 
+def print_dead_end():
+    print(Fore.RED + "You've hit a dead end.\n")
+
+
 cardinal_directions = [
     {
         "type": "list",
@@ -49,7 +53,7 @@ while not cmd == "Quit":
     os.system("clear")  # requires detection for os, "clear" works only for mac
 
     if dead_end is True:
-        print(Fore.RED + "You've hit a dead end.\n")
+        print_dead_end()
         dead_end = False
 
     # displays current room & description
