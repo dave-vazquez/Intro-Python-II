@@ -3,8 +3,6 @@ from colorama import Fore
 from colorama import init
 from room import rooms
 from player import player
-import copy
-import sys
 import os
 
 # sets colorama autoreset to true
@@ -18,7 +16,7 @@ def print_current_room(current_room):
 
 
 def print_dead_end():
-    print(Fore.RED + "\nYou've hit a dead end.\n")
+    print(Fore.RED + "You've hit a dead end.\n")
 
 
 cardinal_directions = [
