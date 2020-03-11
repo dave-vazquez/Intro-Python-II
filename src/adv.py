@@ -1,11 +1,15 @@
 from PyInquirer import prompt
 from colorama import Fore
+from colorama import init
 from room import rooms
 from player import player
 import copy
 import sys
 import os
 
+# sets colorama autoreset to true
+# prevents text color retention
+init(autoreset=False)
 
 # TODO: consider textwrap module
 def print_current_room(player):
@@ -58,6 +62,6 @@ while not cmd == "Quit":
         dead_end = True
 
 
-clear()
-print("Your journey has ended. For now...")
+os.system("clear")
+print(Fore.RED + "Your journey has ended. For now...")
 
