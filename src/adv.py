@@ -13,15 +13,12 @@ init(autoreset=False)
 
 # TODO: consider textwrap module
 def print_current_room(player):
-    print(
-        Fore.CYAN
-        + f"Current Room: {player.current_room.name} \
-        \n\n{player.current_room.description}\n"
-    )
+    print(Fore.CYAN + "Current Room: " + Fore.MAGENTA + f"{player.current_room.name}\n")
+    print(Fore.GREEN + f"{player.current_room.description}\n")
 
 
 def print_dead_end():
-    print(Fore.RED + "You've hit a dead end.\n")
+    print(Fore.RED + "\nYou've hit a dead end.\n")
 
 
 cardinal_directions = [
@@ -40,12 +37,12 @@ while not cmd == "Quit":
     # clears terminal
     os.system("clear")  # TODO: requires detection for os, "clear" works only for mac
 
+    # displays current room & description
+    print_current_room(player)
+
     if dead_end is True:
         print_dead_end()
         dead_end = False
-
-    # displays current room & description
-    print_current_room(player)
 
     # prompts user to enter a cardinal direction
     cmd = prompt(cardinal_directions)["menu"]
