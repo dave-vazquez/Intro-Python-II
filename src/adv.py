@@ -9,6 +9,26 @@ import os
 # prevents text color retention
 init(autoreset=False)
 
+main_menu = [
+    {
+        "type": "list",
+        "name": "menu",
+        "message": "What action would you like to take?",
+        "choices": ["Move", "Take Item", "Quit"],
+    }
+]
+
+cardinal_directions = [
+    {
+        "type": "list",
+        "name": "direction",
+        "message": "What action would you like to take?",
+        "choices": ["Move", "Take Item", "Quit"],
+    },
+]
+
+items = [{"type": "checkbox", "name": "items", "message": "Select an item"}]
+
 # TODO: consider textwrap module
 def print_current_room(current_room):
     print(Fore.CYAN + "Current Room: " + Fore.MAGENTA + f"{current_room.name}\n")
@@ -26,16 +46,8 @@ def print_dead_end():
     print(Fore.RED + "You've hit a dead end.\n")
 
 
-cardinal_directions = [
-    {
-        "type": "list",
-        "name": "menu",
-        "message": "What direction do you want to move in?",
-        "choices": ["North", "South", "East", "West", "Quit"],
-    }
-]
-
 cmd = ""
+direction = ""
 dead_end = False
 
 while not cmd == "Quit":
@@ -43,27 +55,38 @@ while not cmd == "Quit":
     os.system("clear")  # TODO: requires detection for os, "clear" works only for mac
 
     current_room = player.get_current_room()
+    room_items = current_room.get_items()
+
+    print(f"room_items: {[item.get_name() for item in room_items]}")
     # displays current room & description
     print_current_room(current_room)
+    # displays items in room
     print_room_items(current_room)
 
     if dead_end is True:
         print_dead_end()
         dead_end = False
 
-    # prompts user to enter a cardinal direction
-    cmd = prompt(cardinal_directions)["menu"]
-    try:
-        if cmd == "North":
-            player.move(cmd)
-        elif cmd == "South":
-            player.move(cmd)
-        elif cmd == "East":
-            player.move(cmd)
-        elif cmd == "West":
-            player.move(cmd)
-    except AttributeError:
-        dead_end = True
+    cmd = prompt(main_menu)["menu"]
+    if cmd == "Move":
+        # prompts user to enter a cardinal direction
+        direction = prompt(cardinal_directions)["direction"]
+        try:
+            if direction == "North":
+                player.move(direction)
+            elif direction == "South":
+                player.move(direction)
+            elif direction == "East":
+                player.move(direction)
+            elif direction == "West":
+                player.move(direction)
+        except AttributeError:
+            dead_end = True
+    elif cmd == "Take Item":
+        items[0]["choices"] = [{"name": item.get_name()} for item in room_items]
+
+        prompt(items)["items"]
+        pass
 
 
 os.system("clear")
