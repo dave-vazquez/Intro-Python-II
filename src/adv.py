@@ -15,6 +15,13 @@ def print_current_room(current_room):
     print(Fore.GREEN + f"{current_room.description}\n")
 
 
+def print_room_items(current_room):
+    print(Fore.CYAN + "Items in Room:")
+    for item in current_room.get_items():
+        print(Fore.MAGENTA + f"{item}")
+    print()  # line break
+
+
 def print_dead_end():
     print(Fore.RED + "You've hit a dead end.\n")
 
@@ -38,6 +45,7 @@ while not cmd == "Quit":
     current_room = player.get_current_room()
     # displays current room & description
     print_current_room(current_room)
+    print_room_items(current_room)
 
     if dead_end is True:
         print_dead_end()
