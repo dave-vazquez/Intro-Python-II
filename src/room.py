@@ -1,4 +1,4 @@
-from item
+from item import Item
 
 class Room:
     def __init__(self, name, description, items=None):
@@ -30,7 +30,7 @@ rooms = {
     "foyer": Room(
         "Foyer",
         """Dim light filters in from the south. Dusty
-passages run north and east...""",Item("Gold", "Some money for your pocket"),
+passages run north and east...""",[Item("Gold", "Some money for your pocket"),
         Item("Helmet", "Something to protect your head from further damage."),
         Item("Shield", "Something to protect your body.")]
     ),
