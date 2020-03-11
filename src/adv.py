@@ -6,24 +6,8 @@ import copy
 import sys
 import os
 
-"""
-    Main
 
-    Make a new player object that is currently in the 'outside' room.
-
-    Write a loop that:
-
-    * Prints the current room name
-    * Prints the current description (the textwrap module might be useful here).
-    * Waits for user input and decides what to do.
-
-    # Print an error message if the movement isn't allowed.
-    If the user enters a cardinal direction, attempt to move to the room there.
-
-    If the user enters "q", quit the game.
-"""
-
-
+# TODO: consider textwrap module
 def print_current_room(player):
     print(
         Fore.CYAN
@@ -50,7 +34,7 @@ dead_end = False
 
 while not cmd == "Quit":
     # clears terminal
-    os.system("clear")  # requires detection for os, "clear" works only for mac
+    os.system("clear")  # TODO: requires detection for os, "clear" works only for mac
 
     if dead_end is True:
         print_dead_end()
