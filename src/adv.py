@@ -12,9 +12,9 @@ import os
 init(autoreset=False)
 
 # TODO: consider textwrap module
-def print_current_room(player):
-    print(Fore.CYAN + "Current Room: " + Fore.MAGENTA + f"{player.current_room.name}\n")
-    print(Fore.GREEN + f"{player.current_room.description}\n")
+def print_current_room(current_room):
+    print(Fore.CYAN + "Current Room: " + Fore.MAGENTA + f"{current_room.name}\n")
+    print(Fore.GREEN + f"{current_room.description}\n")
 
 
 def print_dead_end():
@@ -37,8 +37,9 @@ while not cmd == "Quit":
     # clears terminal
     os.system("clear")  # TODO: requires detection for os, "clear" works only for mac
 
+    current_room = player.get_current_room()
     # displays current room & description
-    print_current_room(player)
+    print_current_room(current_room)
 
     if dead_end is True:
         print_dead_end()
