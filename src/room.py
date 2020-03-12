@@ -1,4 +1,5 @@
 from item import Item
+import copy
 
 
 class Room:
@@ -6,7 +7,10 @@ class Room:
         self.name = name
         self.description = description
         self.items = items
-        #TODO: add back *_to attributes
+        self.n_to = None
+        self.s_to = None
+        self.e_to = None
+        self.w_to = None
 
     def get_name(self):
         return self.name
@@ -16,6 +20,22 @@ class Room:
 
     def get_items(self):
         return self.items
+
+    def remove_items(self, item_names):
+        removed_items = []
+
+        indices_to_remove = [
+            idx for idx, item in enumerate(self.items) if item.get_name() in item_names
+        ]
+
+        for idx in indices_to_remove:
+            removed_items.append(self.items[idx])
+
+        self.items = [
+            item for idx, item in enumerate(self.items) if idx not in indices_to_remove
+        ]
+
+        return removed_items
 
     def __str__(self):
         return f" {{ name: {self.name}, description: {self.description} }}"
