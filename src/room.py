@@ -63,8 +63,8 @@ rooms = {
         """Dim light filters in from the south. Dusty
 passages run north and east...""",
         [
-            Item("Gold", "Some money for your pocket"),
-            Item("Helmet", "Something to protect your head from further damage."),
+            Item("Gold", "A few peices of gold."),
+            Item("Helmet", "Something to protect your head.."),
             Item("Shield", "Something to protect your body."),
         ],
     ),
@@ -74,9 +74,9 @@ passages run north and east...""",
 into the darkness. Ahead to the north, a light flickers in
 the distance, but there is no way across the chasm...""",
         [
-            Item("Skull", "Some dead guy's skull."),
+            Item("Skull", "A previous traveler's skull."),
             Item("Hide", "Hide from a Cow."),
-            Item("Bow", "A violin bow. Probably not what you were thinking"),
+            Item("Bow", "An old bow."),
         ],
     ),
     "narrow": Room(
@@ -87,9 +87,9 @@ to north. The smell of gold permeates the air...""",
             Item("Sword", "A large iron sword."),
             Item(
                 "Arrow",
-                "This one looks as if it had been logged in the knee of an adventurer...",
+                "This one looks as if it had been lodged into the knee of an adventurer...",
             ),
-            Item("Leather Pants", "Chapped, assless, leather pants."),
+            Item("Leather Pants", "Chapped, ass-less, leather pants."),
         ],
     ),
     "treasure": Room(
