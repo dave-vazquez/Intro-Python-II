@@ -71,14 +71,7 @@ while not cmd == "Quit":
         # prompts user to enter a cardinal direction
         direction = prompt(direction_menu)["direction"]
         try:
-            if direction == "North":
-                player.move(direction)
-            elif direction == "South":
-                player.move(direction)
-            elif direction == "East":
-                player.move(direction)
-            elif direction == "West":
-                player.move(direction)
+            player.move(direction)
         except AttributeError:
             dead_end = True
     elif cmd == "Take Item":
