@@ -72,7 +72,7 @@ while not cmd == "Quit":
         direction = prompt(direction_menu)["direction"]
         try:
             player.move(direction)
-        except AttributeError:
+        except AttributeError: #TODO: maybe handle by checking for None vs catching errors
             dead_end = True
     elif cmd == "Take Item":
         item_menu[0]["choices"] = [{"name": item.get_name()} for item in room_items]
