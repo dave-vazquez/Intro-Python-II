@@ -3,31 +3,32 @@ from colorama import Fore
 from colorama import init
 from room import rooms
 from player import player
+from player import InvalidMoveError
 import os
 
 # sets colorama autoreset to true
 # prevents text color retention
 init(autoreset=False)
 
-main_menu = [
-    {
-        "type": "list",
-        "name": "menu",
-        "message": "What action would you like to take?",
-        "choices": ["Move", "Take Item", "Quit"],
-    }
-]
+main_menu = {
+    "type": "list",
+    "name": "menu",
+    "message": "What action would you like to take?",
+    "choices": ["Move", "Take Item", "Quit"],
+}
 
-direction_menu = [
+
+direction_menu = (
     {
         "type": "list",
         "name": "direction",
         "message": "Which direction?",
         "choices": ["North", "South", "East", "West", "Back to Menu"],
     },
-]
+)
 
-item_menu = [{"type": "checkbox", "name": "items", "message": "Select an item"}]
+
+item_menu = {"type": "checkbox", "name": "items", "message": "Select an item"}
 
 # TODO: consider textwrap module
 def print_current_room(current_room):
@@ -67,6 +68,7 @@ while not cmd == "Quit":
         dead_end = False
 
     cmd = prompt(main_menu)["menu"]
+
     if cmd == "Move":
         # prompts user to enter a cardinal direction
         direction = prompt(direction_menu)["direction"]
@@ -74,15 +76,15 @@ while not cmd == "Quit":
             player.move(direction)
         # TODO: maybe handle by checking for None vs catching errors
         # or using getattr in the player class
-        except AttributeError:
+        except InvalidMoveError:
             dead_end = True
     elif cmd == "Take Item":
-        item_menu[0]["choices"] = [{"name": item.get_name()} for item in room_items]
-
-        prompt(item_menu)["items"]
+        item_menu["choices"] = [{"name": item.get_name()} for item in room_items]
+        item_selections = prompt(item_menu)["items"]
+        removed_items = current_room.remove_items(item_selections)
         pass
 
-
+# game end
 os.system("clear")
 print(Fore.RED + "Your journey has ended. For now...")
 
