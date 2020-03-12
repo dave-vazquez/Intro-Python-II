@@ -5,28 +5,31 @@ from room import rooms
 from menus import main_menu, direction_menu, item_menu
 import os
 
-# sets colorama autoreset to true
-# prevents text color retention
-init(autoreset=False)
-
-
-def print_dead_end():
-    print(Fore.RED + "You've hit a dead end.\n")
-
-
-def print_room_empty():
-    print(Fore.RED + "There are no items in this room.\n")
-
-
-def print_inventory_empty():
-    print(Fore.RED + "You have no items to drop.\n")
-
-
 cmd = ""
 direction = ""
 dead_end = False
 room_empty = False
 inventory_empty = False
+
+# sets colorama autoreset to true
+# prevents text color retention
+init(autoreset=False)
+
+
+def print_warning_message():
+    global dead_end, room_empty, inventory_empty
+
+    if dead_end:
+        print_dead_end()
+        dead_end = False
+    elif room_empty:
+
+        print_room_empty()
+        room_empty = False
+    elif inventory_empty:
+        print_inventory_empty()
+        inventory_empty = False
+
 
 while not cmd == "Quit":
     # clears terminal
@@ -41,16 +44,8 @@ while not cmd == "Quit":
     print(current_room)
     # displays player's inventory
     print(player)
-
-    if dead_end is True:
-        print_dead_end()
-        dead_end = False
-    if room_empty is True:
-        print_room_empty()
-        room_empty = False
-    if inventory_empty is True:
-        print_inventory_empty()
-        inventory_empty = False
+    # displays warning message
+    print_warning_message()
 
     cmd = prompt(main_menu)["menu"]
 
