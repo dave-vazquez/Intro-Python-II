@@ -1,33 +1,13 @@
 from PyInquirer import prompt
-from colorama import Fore
-from colorama import init
+from colorama import Fore, init
+from player import player, InvalidMoveError
 from room import rooms
-from player import player
-from player import InvalidMoveError
+from menus import main_menu, direction_menu, item_menu
 import os
-
-# MVP Commit
 
 # sets colorama autoreset to true
 # prevents text color retention
 init(autoreset=False)
-
-main_menu = {
-    "type": "list",
-    "name": "menu",
-    "message": "What action would you like to take?",
-    "choices": ["Move", "Take Item", "Drop Item", "Quit"],
-}
-
-
-direction_menu = {
-    "type": "list",
-    "name": "direction",
-    "message": "Which direction",
-    "choices": ["North", "South", "East", "West", "Back to Menu"],
-}
-
-item_menu = {"type": "checkbox", "name": "items", "message": "Which item?"}
 
 
 def print_dead_end():
