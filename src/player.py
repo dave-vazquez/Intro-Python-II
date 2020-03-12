@@ -55,7 +55,7 @@ class Player:
         for item in player.get_items():
             items += Fore.MAGENTA + f"{item}\n"
 
-        return Fore.CYAN + "Held Items:\n" + items
+        return Fore.CYAN + "Inventory:\n" + items
 
 
 class InvalidMoveError(Exception):
