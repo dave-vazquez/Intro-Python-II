@@ -3,10 +3,10 @@ from room import rooms
 
 
 class Player:
-    def __init__(self, name, current_room):
+    def __init__(self, name, current_room, items=None):
         self.name = name
         self.current_room = current_room
-        self.items = []
+        self.items = items
 
     def get_current_room(self):
         return self.current_room
@@ -16,6 +16,25 @@ class Player:
 
     def add_items(self, items):
         self.items.extend(items)
+
+    def drop_items(self, item_names):
+        dropped_items = []
+
+        indices_to_remove = [
+            idx for idx, item in enumerate(self.items) if item.get_name() in item_names
+        ]
+
+        for idx in indices_to_remove:
+            dropped_items.append(self.items[idx])
+
+        self.items = [
+            item for idx, item in enumerate(self.items) if idx not in indices_to_remove
+        ]
+
+        return dropped_items
+
+    def inventory_not_empty(self):
+        return len(self.items) > 0
 
     def move(self, direction):
         if direction == "North" and self.current_room.n_to is not None:
@@ -37,4 +56,4 @@ class InvalidMoveError(Exception):
     pass
 
 
-player = Player("hero", rooms["outside"])
+player = Player("hero", rooms["outside"], [])
