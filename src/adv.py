@@ -101,11 +101,11 @@ while not cmd == "Quit":
             dead_end = True
     elif cmd == "Take Item":
         if current_room.not_empty():
-            # initializes item choices from items in room
+            # initializes item choices to items in room
             item_menu["choices"] = [{"name": item.get_name()} for item in room_items]
             # collects item selections from user
             item_selections = prompt(item_menu)["items"]
-            # removes items from current room and stores them in removed_items
+            # removes items from current room
             removed_items = current_room.remove_items(item_selections)
             # adds items to player's inventory
             player.add_items(removed_items)
@@ -114,13 +114,13 @@ while not cmd == "Quit":
 
     elif cmd == "Drop Item":
         if player.inventory_not_empty():
-            # initializes item choices from items in room
+            # initializes item choices to items in inventory
             item_menu["choices"] = [{"name": item.get_name()} for item in player_items]
             # collects item selections from user
             item_selections = prompt(item_menu)["items"]
-            # removes items from current room and stores them in removed_items
+            # removes items from player inventory
             dropped_items = player.drop_items(item_selections)
-            # adds items back to room
+            # adds items to room
             current_room.add_items(dropped_items)
         else:
             inventory_empty = True
