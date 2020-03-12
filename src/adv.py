@@ -19,13 +19,13 @@ def print_warning_message():
     global dead_end, room_empty, inventory_empty
 
     if dead_end:
-        print_dead_end()
+        print(Fore.RED + "You've hit a dead end.\n")
         dead_end = False
     elif room_empty:
-        print_room_empty()
+        print(Fore.RED + "There are no items in this room.\n")
         room_empty = False
     elif inventory_empty:
-        print_inventory_empty()
+        print(Fore.RED + "You have no items to drop.\n")
         inventory_empty = False
 
 
@@ -82,5 +82,5 @@ while not cmd == "Quit":
 
 # game end
 os.system("clear")
-print(Fore.RED + "Your journey has ended. For now... ☠☠☠ ")
+print(Fore.RED + "Your journey has ended. For now...")
 
