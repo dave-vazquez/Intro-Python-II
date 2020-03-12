@@ -6,6 +6,8 @@ from player import player
 from player import InvalidMoveError
 import os
 
+# MVP Commit
+
 # sets colorama autoreset to true
 # prevents text color retention
 init(autoreset=False)
