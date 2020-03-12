@@ -42,6 +42,12 @@ def print_room_items(current_room):
         print(Fore.MAGENTA + f"{item}")
     print()  # line break
 
+def print_player_items(player):
+    print(Fore.CYAN + "Held Items:")
+    for item in player.get_items():
+        print(Fore.MAGENTA + f"{item}")
+    print()  # line break
+
 
 def print_dead_end():
     print(Fore.RED + "You've hit a dead end.\n")
@@ -62,6 +68,8 @@ while not cmd == "Quit":
     print_current_room(current_room)
     # displays items in room
     print_room_items(current_room)
+    # displays items held by player
+    print_player_items(player)
 
     if dead_end is True:
         print_dead_end()
@@ -74,15 +82,17 @@ while not cmd == "Quit":
         direction = prompt(direction_menu)["direction"]
         try:
             player.move(direction)
-        # TODO: maybe handle by checking for None vs catching errors
-        # or using getattr in the player class
         except InvalidMoveError:
             dead_end = True
     elif cmd == "Take Item":
+        # initializes item choices from items in room
         item_menu["choices"] = [{"name": item.get_name()} for item in room_items]
+        # collects item selections from user
         item_selections = prompt(item_menu)["items"]
+        # removes items from current room and stores them in removed_items
         removed_items = current_room.remove_items(item_selections)
-        pass
+        # adds items to player's inventory
+        player.add_items(removed_items)
 
 # game end
 os.system("clear")
