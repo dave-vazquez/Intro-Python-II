@@ -3,16 +3,19 @@ from room import rooms
 
 
 class Player:
-    def __init__(self, name, current_room, items=None):
+    def __init__(self, name, current_room):
         self.name = name
         self.current_room = current_room
-        self.items = items
+        self.items = []
 
     def get_current_room(self):
         return self.current_room
 
     def get_items(self):
         return self.items
+
+    def add_items(self, items):
+        self.items.extend(items)
 
     def move(self, direction):
         if direction == "North" and self.current_room.n_to is not None:
