@@ -6,6 +6,7 @@ class Room:
         self.name = name
         self.description = description
         self.items = items
+        #TODO: add back *_to attributes
 
     def get_name(self):
         return self.name
