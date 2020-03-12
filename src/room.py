@@ -68,9 +68,9 @@ rooms = {
         "Outside Cave Entrance",
         "North of you, the cave mount beckons...",
         [
-            Item("Rock", "A large stone made from basalt."),
-            Item("Paper", "A sheet of paper made of papyrus."),
-            Item("Scissors", "A marvelous new piece of technology."),
+            Item("Rock", "A large stone made from basalt. 💎"),
+            Item("Paper", "A sheet of paper made of papyrus. 🗞"),
+            Item("Scissors", "A marvelous new piece of technology. ✂"),
         ],
     ),
     "foyer": Room(
@@ -78,9 +78,9 @@ rooms = {
         """Dim light filters in from the south. Dusty
 passages run north and east...""",
         [
-            Item("Gold", "A few peices of gold."),
-            Item("Helmet", "Something to protect your head.."),
-            Item("Shield", "Something to protect your body."),
+            Item("Gold", "A few peices of gold. 💰"),
+            Item("Helmet", "Something to protect your head. ⛑"),
+            Item("Shield", "Something to protect your body. 🛡"),
         ],
     ),
     "overlook": Room(
@@ -89,9 +89,9 @@ passages run north and east...""",
 into the darkness. Ahead to the north, a light flickers in
 the distance, but there is no way across the chasm...""",
         [
-            Item("Skull", "A previous traveler's skull."),
-            Item("Hide", "Hide from a Cow."),
-            Item("Bow", "An old bow."),
+            Item("Skull", "A previous traveler's skull. 💀"),
+            Item("Hide", "Hide from a Cow. 🐄"),
+            Item("Bow", "An old bow. 🏹"),
         ],
     ),
     "narrow": Room(
@@ -99,12 +99,12 @@ the distance, but there is no way across the chasm...""",
         """The narrow passage bends here from west
 to north. The smell of gold permeates the air...""",
         [
-            Item("Sword", "A large iron sword."),
+            Item("Sword", "A large iron sword. ⚔"),
             Item(
                 "Arrow",
-                "This one looks as if it had been lodged into the knee of an adventurer...",
+                "This one looks as if it had been lodged into the knee of an adventurer... ↗",
             ),
-            Item("Leather Pants", "Chapped, ass-less, leather pants."),
+            Item("Leather Pants", "Chapped, ass-less, leather pants. 👖"),
         ],
     ),
     "treasure": Room(
@@ -112,7 +112,7 @@ to north. The smell of gold permeates the air...""",
         """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south...""",
-    ),
+    )
 }
 
 # link rooms together

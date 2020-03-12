@@ -18,6 +18,8 @@ class Player:
     def add_items(self, items):
         self.items.extend(items)
 
+    # PyInquirer doesn't give you indexed selections, only named selections
+    # Result is that I gotta do some really hacky
     def drop_items(self, item_names):
         dropped_items = []
 

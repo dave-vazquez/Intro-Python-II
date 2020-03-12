@@ -82,5 +82,5 @@ while not cmd == "Quit":
 
 # game end
 os.system("clear")
-print(Fore.RED + "Your journey has ended. For now...")
+print(Fore.RED + "Your journey has ended. For now... ☠☠☠ ")
 
