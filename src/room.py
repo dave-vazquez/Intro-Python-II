@@ -1,4 +1,5 @@
 from item import Item
+from colorama import Fore
 import copy
 
 
@@ -44,7 +45,21 @@ class Room:
         return len(self.items) > 0
 
     def __str__(self):
-        return f" {{ name: {self.name}, description: {self.description} }}"
+        items = ""
+        for item in self.items:
+            items += Fore.MAGENTA + f"{item}\n"
+        # line break
+        return (
+            Fore.CYAN
+            + "Current Room: "
+            + Fore.MAGENTA
+            + f"{self.name}\n\n"
+            + Fore.WHITE
+            + f"{self.description}\n\n"
+            + Fore.CYAN
+            + "Items in Room:\n"
+            + items
+        )
 
 
 # declare all the rooms

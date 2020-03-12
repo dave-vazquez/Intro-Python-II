@@ -1,3 +1,6 @@
+from colorama import Fore
+
+
 class Item:
     def __init__(self, name, description):
         self.name = name
@@ -10,4 +13,4 @@ class Item:
         return self.description
 
     def __str__(self):
-        return f"{self.name}: {self.description}"
+        return Fore.WHITE + f"{self.name}: " + Fore.GREEN + f"{self.description}"

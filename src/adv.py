@@ -29,25 +29,6 @@ direction_menu = {
 
 item_menu = {"type": "checkbox", "name": "items", "message": "Which item?"}
 
-# TODO: consider textwrap module
-def print_current_room(current_room):
-    print(Fore.CYAN + "Current Room: " + Fore.MAGENTA + f"{current_room.name}\n")
-    print(Fore.GREEN + f"{current_room.description}\n")
-
-
-def print_room_items(current_room):
-    print(Fore.CYAN + "Items in Room:")
-    for item in current_room.get_items():
-        print(Fore.MAGENTA + f"{item}")
-    print()  # line break
-
-
-def print_player_items(player):
-    print(Fore.CYAN + "Held Items:")
-    for item in player.get_items():
-        print(Fore.MAGENTA + f"{item}")
-    print()  # line break
-
 
 def print_dead_end():
     print(Fore.RED + "You've hit a dead end.\n")
@@ -69,18 +50,17 @@ inventory_empty = False
 
 while not cmd == "Quit":
     # clears terminal
-    os.system("clear")  # TODO: requires detection for os, "clear" works only for mac
+    # TODO: requires detection for os, "clear" works only for mac
+    os.system("clear")
 
     current_room = player.get_current_room()
     room_items = current_room.get_items()
     player_items = player.get_items()
 
     # displays current room & description
-    print_current_room(current_room)
-    # displays items in room
-    print_room_items(current_room)
-    # displays items held by player
-    print_player_items(player)
+    print(current_room)
+    # displays player's inventory
+    print(player)
 
     if dead_end is True:
         print_dead_end()

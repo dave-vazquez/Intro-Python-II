@@ -1,5 +1,6 @@
 from item import Item
 from room import rooms
+from colorama import Fore
 
 
 class Player:
@@ -49,7 +50,12 @@ class Player:
             raise InvalidMoveError()
 
     def __str__(self):
-        return f"{{ name: {self.name}, current_room: {self.current_room} }}"
+        items = ""
+
+        for item in player.get_items():
+            items += Fore.MAGENTA + f"{item}\n"
+
+        return Fore.CYAN + "Held Items:\n" + items
 
 
 class InvalidMoveError(Exception):
