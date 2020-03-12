@@ -5,15 +5,14 @@ from room import rooms
 from menus import main_menu, direction_menu, item_menu
 import os
 
+# prevents text color retention
+init(autoreset=False)
+
 cmd = ""
 direction = ""
 dead_end = False
 room_empty = False
 inventory_empty = False
-
-# sets colorama autoreset to true
-# prevents text color retention
-init(autoreset=False)
 
 
 def print_warning_message():
@@ -23,7 +22,6 @@ def print_warning_message():
         print_dead_end()
         dead_end = False
     elif room_empty:
-
         print_room_empty()
         room_empty = False
     elif inventory_empty:
