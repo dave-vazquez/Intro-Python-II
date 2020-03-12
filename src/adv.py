@@ -14,21 +14,18 @@ main_menu = {
     "type": "list",
     "name": "menu",
     "message": "What action would you like to take?",
-    "choices": ["Move", "Take Item", "Quit"],
+    "choices": ["Move", "Take Item", "Drop Item", "Quit"],
 }
 
 
-direction_menu = (
-    {
-        "type": "list",
-        "name": "direction",
-        "message": "Which direction?",
-        "choices": ["North", "South", "East", "West", "Back to Menu"],
-    },
-)
+direction_menu = {
+    "type": "list",
+    "name": "direction",
+    "message": "Which direction",
+    "choices": ["North", "South", "East", "West", "Back to Menu"],
+}
 
-
-item_menu = {"type": "checkbox", "name": "items", "message": "Select an item"}
+item_menu = {"type": "checkbox", "name": "items", "message": "Which item?"}
 
 # TODO: consider textwrap module
 def print_current_room(current_room):
@@ -42,6 +39,7 @@ def print_room_items(current_room):
         print(Fore.MAGENTA + f"{item}")
     print()  # line break
 
+
 def print_player_items(player):
     print(Fore.CYAN + "Held Items:")
     for item in player.get_items():
@@ -53,9 +51,19 @@ def print_dead_end():
     print(Fore.RED + "You've hit a dead end.\n")
 
 
+def print_room_empty():
+    print(Fore.RED + "There are no items in this room.\n")
+
+
+def print_inventory_empty():
+    print(Fore.RED + "You have no items to drop.\n")
+
+
 cmd = ""
 direction = ""
 dead_end = False
+room_empty = False
+inventory_empty = False
 
 while not cmd == "Quit":
     # clears terminal
@@ -63,6 +71,7 @@ while not cmd == "Quit":
 
     current_room = player.get_current_room()
     room_items = current_room.get_items()
+    player_items = player.get_items()
 
     # displays current room & description
     print_current_room(current_room)
@@ -74,6 +83,12 @@ while not cmd == "Quit":
     if dead_end is True:
         print_dead_end()
         dead_end = False
+    if room_empty is True:
+        print_room_empty()
+        room_empty = False
+    if inventory_empty is True:
+        print_inventory_empty()
+        inventory_empty = False
 
     cmd = prompt(main_menu)["menu"]
 
@@ -85,14 +100,30 @@ while not cmd == "Quit":
         except InvalidMoveError:
             dead_end = True
     elif cmd == "Take Item":
-        # initializes item choices from items in room
-        item_menu["choices"] = [{"name": item.get_name()} for item in room_items]
-        # collects item selections from user
-        item_selections = prompt(item_menu)["items"]
-        # removes items from current room and stores them in removed_items
-        removed_items = current_room.remove_items(item_selections)
-        # adds items to player's inventory
-        player.add_items(removed_items)
+        if current_room.not_empty():
+            # initializes item choices from items in room
+            item_menu["choices"] = [{"name": item.get_name()} for item in room_items]
+            # collects item selections from user
+            item_selections = prompt(item_menu)["items"]
+            # removes items from current room and stores them in removed_items
+            removed_items = current_room.remove_items(item_selections)
+            # adds items to player's inventory
+            player.add_items(removed_items)
+        else:
+            room_empty = True
+
+    elif cmd == "Drop Item":
+        if player.inventory_not_empty():
+            # initializes item choices from items in room
+            item_menu["choices"] = [{"name": item.get_name()} for item in player_items]
+            # collects item selections from user
+            item_selections = prompt(item_menu)["items"]
+            # removes items from current room and stores them in removed_items
+            dropped_items = player.drop_items(item_selections)
+            # adds items back to room
+            current_room.add_items(dropped_items)
+        else:
+            inventory_empty = True
 
 # game end
 os.system("clear")
