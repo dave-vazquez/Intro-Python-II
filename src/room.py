@@ -21,6 +21,9 @@ class Room:
     def get_items(self):
         return self.items
 
+    def add_items(self, items):
+        self.items.extend(items)
+
     def remove_items(self, item_names):
         removed_items = []
 
@@ -36,6 +39,9 @@ class Room:
         ]
 
         return removed_items
+
+    def not_empty(self):
+        return len(self.items) > 0
 
     def __str__(self):
         return f" {{ name: {self.name}, description: {self.description} }}"
