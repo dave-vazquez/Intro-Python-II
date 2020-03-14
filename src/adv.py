@@ -1,51 +1,85 @@
-from room import Room
+from PyInquirer import prompt
+from colorama import Fore, init
+from player import player, InvalidMoveError
+from room import rooms
+from menus import main_menu, direction_menu, item_menu
+import os
 
-# Declare all the rooms
+# prevents text color retention
+init(autoreset=False)
 
-room = {
-    'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
-
-    'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
-
-    'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
-into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm."""),
-
-    'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air."""),
-
-    'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
-chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south."""),
-}
+cmd = ""
+direction = ""
+dead_end = False
+room_empty = False
+inventory_empty = False
 
 
-# Link rooms together
+def print_warning_message():
+    global dead_end, room_empty, inventory_empty
 
-room['outside'].n_to = room['foyer']
-room['foyer'].s_to = room['outside']
-room['foyer'].n_to = room['overlook']
-room['foyer'].e_to = room['narrow']
-room['overlook'].s_to = room['foyer']
-room['narrow'].w_to = room['foyer']
-room['narrow'].n_to = room['treasure']
-room['treasure'].s_to = room['narrow']
+    if dead_end:
+        print(Fore.RED + "You've hit a dead end.\n")
+        dead_end = False
+    elif room_empty:
+        print(Fore.RED + "There are no items in this room.\n")
+        room_empty = False
+    elif inventory_empty:
+        print(Fore.RED + "You have no items to drop.\n")
+        inventory_empty = False
 
-#
-# Main
-#
 
-# Make a new player object that is currently in the 'outside' room.
+while not cmd == "Quit":
+    # clears terminal
+    # TODO: requires detection for os, "clear" works only for mac
+    os.system("clear")
 
-# Write a loop that:
-#
-# * Prints the current room name
-# * Prints the current description (the textwrap module might be useful here).
-# * Waits for user input and decides what to do.
-#
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
+    current_room = player.get_current_room()
+    room_items = current_room.get_items()
+    player_items = player.get_items()
+
+    # displays current room & description
+    print(current_room)
+    # displays player's inventory
+    print(player)
+    # displays warning message
+    print_warning_message()
+
+    cmd = prompt(main_menu)["menu"]
+
+    if cmd == "Move":
+        # prompts user to enter a cardinal direction
+        direction = prompt(direction_menu)["direction"]
+        try:
+            player.move(direction)
+        except InvalidMoveError:
+            dead_end = True
+    elif cmd == "Take Item":
+        if current_room.not_empty():
+            # initializes item choices to items in room
+            item_menu["choices"] = [{"name": item.get_name()} for item in room_items]
+            # collects item selections from user
+            item_selections = prompt(item_menu)["items"]
+            # removes items from current room
+            removed_items = current_room.remove_items(item_selections)
+            # adds items to player's inventory
+            player.add_items(removed_items)
+        else:
+            room_empty = True
+
+    elif cmd == "Drop Item":
+        if player.inventory_not_empty():
+            # initializes item choices to items in inventory
+            item_menu["choices"] = [{"name": item.get_name()} for item in player_items]
+            # collects item selections from user
+            item_selections = prompt(item_menu)["items"]
+            # removes items from player inventory
+            dropped_items = player.drop_items(item_selections)
+            # adds items to room
+            current_room.add_items(dropped_items)
+        else:
+            inventory_empty = True
+
+# game end
+os.system("clear")
+print(Fore.RED + "Your journey has ended. For now... ☠  ☠  ☠")
